@@ -3,22 +3,20 @@ package com.percobaan.mysprgames
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
+import android.provider.Settings.Global.getString
 import android.view.View
-import android.widget.ImageButton
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.content.ContextCompat.*
-import com.percobaan.mysprgames.databinding.ActivitySecondBinding
+import com.percobaan.mysprgames.databinding.ActivityThirdBinding
 import com.percobaan.mysprgames.databinding.CustomDialogBinding
-
-val ImageButton.view: Any
-    get() = Unit
+import java.nio.file.Paths.get
 
 
-class SecondActivity : AppCompatActivity() {
-    private lateinit var binding: ActivitySecondBinding
+class ThirdActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityThirdBinding
     private lateinit var name: String
     private lateinit var option1: String
     private lateinit var option2: String
@@ -26,14 +24,16 @@ class SecondActivity : AppCompatActivity() {
     private var state2: Boolean = false
     private lateinit var selected1: View
     private lateinit var selected2: View
+    private lateinit var hasil : String
 
     @SuppressLint("UseCompatLoadingForDrawables")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivitySecondBinding.inflate(layoutInflater)
+        binding = ActivityThirdBinding.inflate(layoutInflater)
         setContentView(binding.root)
         val intent = intent
         val bundle = intent.getBundleExtra("bundle")
+//        val nameplayer = intent.getStringExtra("name")
         val name = intent.getStringExtra("name")
         binding.player1.text = intent?.getStringExtra("name")
 
@@ -44,6 +44,7 @@ class SecondActivity : AppCompatActivity() {
                 option1 = getString(R.string.batu)
 //                option1 = binding.stone1.view.toString()
                 binding.stone1.background = getDrawable(R.drawable.bg_pilihan)
+                random()
             } else {
                 Toast.makeText(this, "Can't Select", Toast.LENGTH_SHORT).show()
             }
@@ -55,6 +56,7 @@ class SecondActivity : AppCompatActivity() {
                 option1 = getString(R.string.kertas)
 //                option1 = binding.paper1.view.toString()
                 binding.paper1.background = getDrawable(R.drawable.bg_pilihan)
+                random()
             } else {
                 Toast.makeText(this, "Can't Select", Toast.LENGTH_SHORT).show()
             }
@@ -66,57 +68,61 @@ class SecondActivity : AppCompatActivity() {
                 option1 = getString(R.string.gunting)
 //                option1 = binding.scissors1.view.toString()
                 binding.scissors1.background = getDrawable(R.drawable.bg_pilihan)
+                random()
             } else {
                 Toast.makeText(this, "Can't Select", Toast.LENGTH_SHORT).show()
             }
         }
-        binding.stone2.setOnClickListener {
-            if (!state2) {
-                state2 = true
-                selected2 = it
-                option2 = getString(R.string.batu)
-//                option2 = binding.stone2.view.toString()
-                binding.stone2.background = getDrawable(R.drawable.bg_pilihan)
-                checkOption(option1, option2)
-            } else {
-                Toast.makeText(this, "Can't Select", Toast.LENGTH_SHORT).show()
-            }
-        }
-        binding.paper2.setOnClickListener {
-            if (!state2) {
-                state2 = true
-                selected2 = it
-                option2 = getString(R.string.kertas)
-//                option2 = binding.paper2.view.toString()
-                binding.paper2.background = getDrawable(R.drawable.bg_pilihan)
-                checkOption(option1, option2)
-            } else {
-                Toast.makeText(this, "Can't Select", Toast.LENGTH_SHORT).show()
-            }
-        }
-        binding.scissors2.setOnClickListener {
-            if (!state2) {
-                state2 = true
-                selected2 = it
-                option2 = getString(R.string.gunting)
-//                option2 = binding.scissors2.view.toString()
-                binding.scissors2.background = getDrawable(R.drawable.bg_pilihan)
-                checkOption(option1, option2)
-            } else {
-                Toast.makeText(this, "Can't Select", Toast.LENGTH_SHORT).show()
-            }
-        }
+
         binding.refresh.setOnClickListener {
             resetState()
         }
-        binding.exit.setOnClickListener{
+        binding.exit.setOnClickListener {
             val Intent = Intent(this, LP3Fragment::class.java)
             startActivity(Intent)
+        }}
+
+
+        @SuppressLint("UseCompatLoadingForDrawables")
+        fun random() {
+            val option2 = arrayOf(getString(R.string.batu), getString(R.string.kertas), getString(R.string.gunting)).random()
+            Toast.makeText(this, "CPU memilih $option2", Toast.LENGTH_SHORT).show()
+
+            if (option1 == option2) {
+                showCustomDialog("Draw!")
+            } else {
+                if ((option1 == getString(R.string.batu) && option2 == getString(R.string.gunting)) ||
+                    (option1 == getString(R.string.kertas) && option2 == getString(R.string.batu)) ||
+                    (option1 == getString(R.string.gunting) && option2 == getString(R.string.kertas))
+                ) {
+                    val name = String
+                    showCustomDialog("$name Win!")
+                } else {
+                    showCustomDialog("CPU Win!")
+                }
+            }
         }
+//        val rnd = java.util.Random()
+//        val option2 = rnd.nextInt(3) + 1
+//        when (option2) {
+//            1 -> {
+//                selected2 = binding.stone2
+//                binding.stone2.background = getDrawable(R.drawable.bg_pilihan)
+//                checkOption(option1,option2)
+//            }
+//            2 -> {
+//                selected2 = binding.paper2
+//                binding.paper2.background = getDrawable(R.drawable.bg_pilihan)
+//                checkOption(option1,option2)
+//            }
+//            3 -> {
+//                selected2 = binding.scissors2
+//                binding.scissors2.background = getDrawable(R.drawable.bg_pilihan)
+//                checkOption(option1,option2)
+//            }
+//        }
+//        }
 
-    }
-
-    @SuppressLint("UseCompatLoadingForDrawables")
     private fun resetState() {
         option1 = ""
         option2 = ""
@@ -138,27 +144,28 @@ class SecondActivity : AppCompatActivity() {
                 val name = String
                 showCustomDialog("$name Win!")
             } else {
-                showCustomDialog("Pemain 2 Win!")
+                showCustomDialog("CPU Win!")
             }
         }
-    }
-    private fun showCustomDialog(title: String){
+        }
+
+    private fun showCustomDialog(title: String) {
         val builder = AlertDialog.Builder(this)
         val view = CustomDialogBinding.inflate(layoutInflater)
         builder.setView(view.root)
         val dialog = builder.create()
         view.tvhasil.text = title
-        view.btnkembali.setOnClickListener {
-            toMenu()
-            dialog.dismiss()
-        }
         view.btnmain.setOnClickListener {
 //            val name = view.tvpemenang.text.toString()
-//            Toast.makeText(this, "$name Menang", Toast.LENGTH_LONG).show()
+//            Toast.makeText(this, "$name Win", Toast.LENGTH_LONG).show()
             resetState()
             dialog.dismiss()
         }
-       dialog.show()
+        view.btnkembali.setOnClickListener {
+            toMenu()
+        dialog.dismiss()
+    }
+        dialog.show()
     }
 
     private fun toMenu(){
@@ -166,3 +173,4 @@ class SecondActivity : AppCompatActivity() {
         startActivity(intent)
     }
 }
+

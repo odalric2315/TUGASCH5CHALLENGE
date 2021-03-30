@@ -28,17 +28,18 @@ class MainActivity : AppCompatActivity() {
                     } else if (currentPosition == (itemTexts.size - 2)) {
                         it.btnNext.visibility = View.GONE
                     } else {
-                        it.btnNext.visibility = View.VISIBLE
+                        it.btnNext.visibility = View.GONE
                     }
 //                    it.btnNext.setOnClickListener {
 //                        currentPosition++
 //                        binding.viewPager.setCurrentItem(currentPosition, true)
-//                    }
+//                   }
                 }
             })
-            }
-        binding.btnNext.setOnClickListener {
-            startActivity(Intent(this,MenuActivity::class.java))
         }
-        }
+//        binding.btnNext.setOnClickListener {
+//            val Intent = Intent(this, MenuActivity::class.java)
+//            startActivity(Intent)
+//        }
+    }
     }

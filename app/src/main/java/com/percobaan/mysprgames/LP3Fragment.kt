@@ -47,14 +47,18 @@ class LP3Fragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-    binding?.btnNext?.setOnClickListener {
-        val name = binding!!.etlp3.text.toString().trim()
-        Intent(activity, MenuActivity::class.java).apply {
-        val bundle = Bundle ()
-            bundle.putString("name",name)
-        }
-    }
-    }
+        binding?.btnNext?.setOnClickListener {
+            val name = binding!!.etlp3.text.toString().trim()
+//        val name = binding!!.etlp3.getText().toString().trim()
+            Intent(activity, MenuActivity::class.java).apply {
+                val bundle = Bundle()
+                bundle.putString("name", name)
+                putExtra("name", name)
+                putExtra("bundle", bundle)
+                startActivity(this)}
+                }
+            }
+
 
     companion object {
         /**

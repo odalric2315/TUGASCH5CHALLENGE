@@ -9,4 +9,14 @@
     <string name="tuliskan_namamu_di_bawah">Tuliskan namamu di bawah</string>
     <string name="name">Name</string>
     <string name="vs">VS</string>
+    <string name="pemain_2">Pemain 2</string>
+    <string name="cpu">CPU</string>
+    <string name="equals">Draw</string>
+    <string name="not_equal">NoDraw</string>
+    <string name="player2win">Player2 Win!</string>
+    <string name="cpuwin">CPU Win!</string>
+    <string name="gunting">gunting</string>
+    <string name="kertas">kertas</string>
+    <string name="batu">batu</string>
+
 </resources>

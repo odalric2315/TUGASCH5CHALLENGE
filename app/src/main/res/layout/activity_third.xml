@@ -34,11 +34,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="40dp"
         android:layout_marginTop="30dp"
-        android:text="$name"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        android:textColor="#2196F3"
-        android:typeface="monospace"
+        android:text=""
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/iv_kgb" />
 
@@ -47,12 +43,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
-        android:layout_marginEnd="20dp"
-        android:text="@string/pemain_2"
-        android:textColor="#2196F3"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        android:typeface="monospace"
+        android:layout_marginEnd="40dp"
+        android:text="@string/cpu"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/iv_kgb" />
 
@@ -106,7 +98,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/player2"
         app:srcCompat="@drawable/batu"
-        android:contentDescription="@string/batu"/>
+        android:contentDescription="@string/batu" />
 
     <ImageButton
         android:id="@+id/paper2"
@@ -119,7 +111,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/stone2"
         app:srcCompat="@drawable/kertas"
-        android:contentDescription="@string/kertas"/>
+        android:contentDescription="@string/kertas" />
 
     <ImageButton
         android:id="@+id/scissors2"
@@ -132,7 +124,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/paper2"
         app:srcCompat="@drawable/gunting"
-        android:contentDescription="@string/gunting"/>
+        android:contentDescription="@string/gunting" />
 
     <TextView
         android:id="@+id/versus"
